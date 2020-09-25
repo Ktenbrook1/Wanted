@@ -13,7 +13,10 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
+<<<<<<< HEAD
       searchResults = searchByTraits(people);
+=======
+>>>>>>> bf5259c05c400944a5ee7add748e9db586c08219
       break;
       default:
     app(people); // restart app
