@@ -71,7 +71,44 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
+
   return foundPerson;
+}
+function searchByGender(people, gender){
+  let foundPeople = people.filter(function(el){
+    if(el.gender === gender){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPeople;
+}
+
+function searchByEyeColor(people, eyeColor){
+  let isCorrectColor = people.filter(function(el){
+    if(el.eyeColor == eyeColor){
+      return true;
+    }
+    else{
+      return false
+    }
+  });
+  return isCorrectColor;
+}
+//SearchByTraits
+function searchByTraits(people){
+  let gender = promptFor("What is the person's gender?", chars);
+  let eyeColor = promptFor("What is the person's eye color?", chars);
+
+  let genderArray = searchByGender(people);
+  displayPeople(genderArray);
+  let eyeColorArray = searchByEyeColor(genderArray);
+  displayPeople(eyeColorArray);
+  
+  console.log(suspects);
+  return foundPeople;
 }
 
 function searchByGender(people){
