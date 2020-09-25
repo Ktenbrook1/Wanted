@@ -97,6 +97,7 @@ function searchByEyeColor(people, eyeColor){
 }
 //SearchByTraits
 function searchByTraits(people){
+  
   let gender = promptFor("What is the person's gender?", chars);
   let eyeColor = promptFor("What is the person's eye color?", chars);
 
