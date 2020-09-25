@@ -13,10 +13,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-<<<<<<< HEAD
       searchResults = searchByTraits(people);
-=======
->>>>>>> bf5259c05c400944a5ee7add748e9db586c08219
       break;
       default:
     app(people); // restart app
@@ -72,7 +69,44 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
+
   return foundPerson;
+}
+function searchByGender(people, gender){
+  let foundPeople = people.filter(function(el){
+    if(el.gender === gender){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return foundPeople;
+}
+
+function searchByEyeColor(people, eyeColor){
+  let isCorrectColor = people.filter(function(el){
+    if(el.eyeColor == eyeColor){
+      return true;
+    }
+    else{
+      return false
+    }
+  });
+  return isCorrectColor;
+}
+//SearchByTraits
+function searchByTraits(people){
+  let gender = promptFor("What is the person's gender?", chars);
+  let eyeColor = promptFor("What is the person's eye color?", chars);
+
+  let genderArray = searchByGender(people);
+  displayPeople(genderArray);
+  let eyeColorArray = searchByEyeColor(genderArray);
+  displayPeople(eyeColorArray);
+  
+  console.log(suspects);
+  return foundPeople;
 }
 
 // alerts a list of people
