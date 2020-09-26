@@ -76,35 +76,51 @@ function searchByName(people){
 }
 function searchByGender(people){
   let searchType = promptFor("Do you know the gender of this person? Enter 'yes' or 'no'", yesNo).toLowerCase();
-  let searchResult;
 
   switch(searchType){
     case 'yes':
       let gender = promptFor("What is the person's gender?", chars);
-      let foundPeople = people.filter(function(el){
-        if(el.gender === gender){
-          return true;
-        }
-        else{
-          return false;
-        }
-      })
-      return foundPeople;
+      if(gender == male || gender == female){
+        let foundPeople = people.filter(function(el){
+          if(el.gender === gender){
+            return foundPeople;
+          }
+          else{
+            return false;
+          }
+        })
+      }
+      else{
+        alert("Could not find that individual based on the input given. Please try again or say 'no' to proceed to next question.");
+        return searchByGender(people);
+      }
     case 'no':
       break;
   }
 }
 
-function searchByEyeColor(people, eyeColor){
-  let isCorrectColor = people.filter(function(el){
-    if(el.eyeColor == eyeColor){
-      return true;
-    }
-    else{
-      return false
-    }
-  });
-  return isCorrectColor;
+function searchByEyeColor(people){
+  let searchType = promptFor("Do you know the eye color of this person? Enter 'yes' or 'no'", yesNo).toLowerCase();
+
+  switch(searchType){
+    case 'yes':
+      let eyeColor = promptFor("What is the person's eye color?", chars);
+      if(eyecolor == blue || eyeColor == black || eyeColor == brown || eyeColor == hazel || eyeColor == green){
+        let foundPeople = people.filter(function(el){
+          if(el.gender === gender){
+            return foundPeople;
+          }
+          else{
+            notValid();
+          }
+        })
+      }
+      else{
+        return searchByEyeColor(people);
+      }
+    case 'no':
+      break;
+  }
 }
 //SearchByTraits
 function searchByTraits(people){
@@ -147,6 +163,11 @@ function promptFor(question, valid){
     var response = prompt(question).trim();
   } while(!response || !valid(response));
   return response;
+}
+//function to alert user that input was not valid 
+function notValid(){
+  alert("Could not find that individual based on the input given. Please try again or say 'no' to proceed to next question.");
+  return false;
 }
 
 // helper function to pass into promptFor to validate yes/no answers
