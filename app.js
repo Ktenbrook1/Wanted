@@ -74,16 +74,25 @@ function searchByName(people){
 
   return foundPerson;
 }
-function searchByGender(people, gender){
-  let foundPeople = people.filter(function(el){
-    if(el.gender === gender){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  return foundPeople;
+function searchByGender(people){
+  let searchType = promptFor("Do you know the gender of this person? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  let searchResult;
+
+  switch(searchType){
+    case 'yes':
+      let gender = promptFor("What is the person's gender?", chars);
+      let foundPeople = people.filter(function(el){
+        if(el.gender === gender){
+          return true;
+        }
+        else{
+          return false;
+        }
+      })
+      return foundPeople;
+    case 'no':
+      break;
+  }
 }
 
 function searchByEyeColor(people, eyeColor){
@@ -100,7 +109,6 @@ function searchByEyeColor(people, eyeColor){
 //SearchByTraits
 function searchByTraits(people){
   
-  let gender = promptFor("What is the person's gender?", chars);
   let eyeColor = promptFor("What is the person's eye color?", chars);
 
   let genderArray = searchByGender(people);
@@ -112,9 +120,6 @@ function searchByTraits(people){
   return foundPeople;
 }
 
-function searchByGender(people){
-  let genderSearch = promptFor("male or female?");
-}
 
 // alerts a list of people
 function displayPeople(people){
