@@ -38,17 +38,16 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    displayPerson(person, data)
-    // TODO: get person's info
+    displayPerson(person, people)
     break;
     case "family":
-    displayFamily(person, data)
+    displayFamily(person, people)
     // TODO: get person's family
     break;
     case "descendants":
-    displayDescendants(person, data)
-    // TODO: get person's descendants
+    displayDescendants(person[0], people)
     break;
+    // TODO: get person's descendants
     case "restart":
     app(people); // restart
     break;
@@ -57,6 +56,26 @@ function mainMenu(person, people){
     default:
     return mainMenu(person, people); // ask again
   }
+  return mainMenu(person, people);
+}
+function displayDescendants(person, people){
+  let childrenArray = people.filter(function(el){
+    if(el.parents[0] == person.id || el.parents[1] == person.id){
+        return true;
+    }
+    else{
+      return false;
+    }
+  })
+  //displayPeople(childrenArray);
+  childrenArray.forEach(child => {
+    displayPerson([child]);
+    displayDescendants(child, people);
+  });
+  
+  //need the parent id.
+  //with the id I need to cheack all the children who have a that parent in their array.
+  //I need to display their names to the user
 }
 
 function searchByName(people){
@@ -201,7 +220,6 @@ function displayPerson(person){
   personInfo += "Eye Color: " + person[0].eyeColor + "\n";
   personInfo += "Occupation: " + person[0].occupation + "\n"; 
   alert(personInfo);
-  mainMenu(person);
 }
 
 function displayDescendants(person, people, allDescendants = []) {
