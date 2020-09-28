@@ -146,12 +146,11 @@ function searchByOccupation(people){
 //SearchByTraits
 
 function searchByTraits(people){
-let foundperson;
 
   let genderArray = searchByGender(people);
   displayPeople(genderArray);
   //checks to see if one person was passed in
-  foundPerson = ifOnePersonFound(genderArray);
+  let foundPerson = ifOnePersonFound(genderArray);
   if(foundPerson == true){
     displayPerson(genderArray);
     return;
