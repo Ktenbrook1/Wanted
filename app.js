@@ -42,10 +42,11 @@ function mainMenu(person, people){
     // TODO: get person's info
     break;
     case "family":
+    displayFamily(person, data)
     // TODO: get person's family
-    display
     break;
     case "descendants":
+    displayDescendants(person, data)
     // TODO: get person's descendants
     break;
     case "restart":
@@ -80,16 +81,18 @@ function searchByGender(people){
   switch(searchType){
     case 'yes':
       let gender = promptFor("What is the person's gender?", chars);
-      if(gender == "male" || gender == "female"){
+      if(gender == male || gender == female){
         let foundPeople = people.filter(function(el){
           if(el.gender === gender){
-            return true;
+            return foundPeople;
+          }
+          else{
+            return false;
           }
         })
-        return foundPeople;
       }
       else{
-        notValid();
+        alert("Could not find that individual based on the input given. Please try again or say 'no' to proceed to next question.");
         return searchByGender(people);
       }
     case 'no':
@@ -103,16 +106,17 @@ function searchByEyeColor(people){
   switch(searchType){
     case 'yes':
       let eyeColor = promptFor("What is the person's eye color?", chars);
-      if(eyeColor == "blue" || eyeColor == "black" || eyeColor == "brown" || eyeColor == "hazel" || eyeColor == "green"){
+      if(eyecolor == blue || eyeColor == black || eyeColor == brown || eyeColor == hazel || eyeColor == green){
         let foundPeople = people.filter(function(el){
-          if(el.eyeColor == eyeColor){
-            return true;
+          if(el.gender === gender){
+            return foundPeople;
+          }
+          else{
+            notValid();
           }
         })
-        return foundPeople;
       }
       else{
-        notValid();
         return searchByEyeColor(people);
       }
     case 'no':
@@ -143,40 +147,76 @@ function searchByOccupation(people){
   }
 }
 //SearchByTraits
-function searchByTraits(people){
 
-  let genderArray = searchByGender(people);
-  displayPeople(genderArray);
-  //checks to see if one person was passed in
-  let foundPerson = ifOnePersonFound(genderArray);
-  if(foundPerson == true){
-    displayPerson(genderArray);
-    return;
+// function searchByTraits(people){
+
+//   let genderArray = searchByGender(people);
+//   displayPeople(genderArray);
+//   //checks to see if one person was passed in
+//   let foundPerson = ifOnePersonFound(genderArray);
+//   if(foundPerson == true){
+//     displayPerson(genderArray);
+//     return;
+//   }
+//   let eyeColorArray = searchByEyeColor(genderArray);
+//   displayPeople(eyeColorArray);
+//   // let foundPerson = ifOnePersonFound(eyeColorArray);
+//   if(foundPerson == true){
+//     displayPerson(genderArray);
+//     return;
+//   }
+//   let occupationArray = searchByOccupation(eyeColorArray);
+//   displayPeople(occupationArray);
+//   // let foundPerson = ifOnePersonFound(occupationArray);
+//   if(foundPerson == true){
+//     displayPerson(genderArray);
+//     return;
+//   }
+// }
+// //If there is one result in the search by traits it will return true
+// function ifOnePersonFound(people){
+//   if(people > 1){
+//     return true;
+//   }
+//   else{
+//     return false;
+//   }
+// }
+
+function searchByTraits(people) {
+  let searchType = promptFor("Which trait(s) would you like to search by? 'gender', 'dob', 'height', 'weight', 'eye color', 'occupation'", chars).toLowerCase();
+  let filterPeople = [];
+  
+  switch(searchType){
+      case "gender":
+      filterPeople = searchByGender(people);
+      break;
+      case "dob":
+      filterPeople = searchByDob(people);
+      break;
+      case "height":
+      filterPeople = searchByHeight(people);
+      break;
+      case "weight":
+      filterPeople = searchByWeight(people);
+      break;
+      case "eye color":
+      filterPeople = searchByEyeColor(people);
+      break;
+      case "occupation":
+      filterPeople = searchByOccupation(people);
+      break;
+      case "restart":
+      app(people); // restart
+      break;
+      case "quit":
+      return;
+      default:
+        alert("Please Enter A Correct Entry Option");
+        searchByTraits(people);
+        break;
+    }
   }
-  let eyeColorArray = searchByEyeColor(genderArray);
-  displayPeople(eyeColorArray);
-  // let foundPerson = ifOnePersonFound(eyeColorArray);
-  if(foundPerson == true){
-    displayPerson(genderArray);
-    return;
-  }
-  let occupationArray = searchByOccupation(eyeColorArray);
-  displayPeople(occupationArray);
-  // let foundPerson = ifOnePersonFound(occupationArray);
-  if(foundPerson == true){
-    displayPerson(genderArray);
-    return;
-  }
-}
-//If there is one result in the search by traits it will return true
-function ifOnePersonFound(people){
-  if(people > 1){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
 
 
 // alerts a list of people
@@ -198,6 +238,39 @@ function displayPerson(person){
   personInfo += "Occupation: " + person.occupation + "\n"; 
   alert(personInfo);
   mainMenu(person);
+}
+
+function displayDescendants(person, people, allDescendants = []) {
+  var loopFinish = false;
+  let newArray = people.filter(function (el) {
+    if( (person.id == el.parents[0]) || (person.id == el.parents[1]) ) {
+      allDescendants.push(el)
+      return true;
+    } else {
+      return false;
+    }
+  });
+  if (newArray.length > 1) {
+    for (var i = 0; i < newArray.length; i++) {
+      displayDescendants(newArray[i], data, allDescendants);
+    }
+    loopFinish = true;
+  } else if (allDescendants.length === 0) {
+    loopFinish = true;
+  }
+  
+  if (newArray.length >= 1) {
+    displayPeople(allDescendants)
+    return app(data);
+  }
+ 
+  if (loopFinish) {
+    if (newArray === undefined || newArray.length === 0) {
+      alert("This person has no descendants");
+      return app(data);
+    }
+    loopFinish = false;
+  }
 }
 
 // function that prompts and validates user input
