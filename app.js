@@ -226,12 +226,6 @@ function displayFamily(person, people){
     }
     else{
       return false;
-    }
-  });
-  let spouseArray = people.filter(function(el){
-    if(el.currentSpouse[0] ==)
-  })
-  parrentArray.forEach()
 }
   
 
