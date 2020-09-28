@@ -58,25 +58,6 @@ function mainMenu(person, people){
   }
   return mainMenu(person, people);
 }
-function displayDescendants(person, people){
-  let childrenArray = people.filter(function(el){
-    if(el.parents[0] == person.id || el.parents[1] == person.id){
-        return true;
-    }
-    else{
-      return false;
-    }
-  })
-  //displayPeople(childrenArray);
-  childrenArray.forEach(child => {
-    displayPerson([child]);
-    displayDescendants(child, people);
-  });
-  
-  //need the parent id.
-  //with the id I need to cheack all the children who have a that parent in their array.
-  //I need to display their names to the user
-}
 
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
@@ -222,38 +203,37 @@ function displayPerson(person){
   alert(personInfo);
 }
 
-function displayDescendants(person, people, allDescendants = []) {
-  var loopFinish = false;
-  let newArray = people.filter(function (el) {
-    if( (person.id == el.parents[0]) || (person.id == el.parents[1]) ) {
-      allDescendants.push(el)
-      return true;
-    } else {
+function displayDescendants(person, people){
+  let childrenArray = people.filter(function(el){
+    if(el.parents[0] == person.id || el.parents[1] == person.id){
+        return true;
+    }
+    else{
+      return false;
+    }
+  })
+  //displayPeople(childrenArray);
+  childrenArray.forEach(child => {
+    displayPerson([child]);
+    displayDescendants(child, people);
+  });
+}
+
+function displayFamily(person, people){
+  let parrentArray = people.filter(function(el){
+    if(el.parents[0] == people.id || el.parents[1] == people.id){
+        return true;
+    }
+    else{
       return false;
     }
   });
-  if (newArray.length > 1) {
-    for (var i = 0; i < newArray.length; i++) {
-      displayDescendants(newArray[i], data, allDescendants);
-    }
-    loopFinish = true;
-  } else if (allDescendants.length === 0) {
-    loopFinish = true;
-  }
-  
-  if (newArray.length >= 1) {
-    displayPeople(allDescendants)
-    return app(data);
-  }
- 
-  if (loopFinish) {
-    if (newArray === undefined || newArray.length === 0) {
-      alert("This person has no descendants");
-      return app(data);
-    }
-    loopFinish = false;
-  }
+  let spouseArray = people.filter(function(el){
+    if(el.currentSpouse[0] ==)
+  })
+  parrentArray.forEach()
 }
+  
 
 // function that prompts and validates user input
 function promptFor(question, valid){
