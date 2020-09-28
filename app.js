@@ -83,7 +83,7 @@ function searchByGender(people){
       let gender = promptFor("What is the person's gender?", chars);
       if(gender == "male" || gender == "female"){
         let foundPeople = people.filter(function(el){
-          if(el.gender === gender){
+          if(el.gender == gender){
             return true;
           }
         })
@@ -159,21 +159,21 @@ function searchByTraits(people){
   displayPeople(eyeColorArray);
   foundPerson = ifOnePersonFound(eyeColorArray);
   if(foundPerson == true){
-    displayPerson(genderArray);
+    displayPerson(eyeColorArray);
     return;
   }
   let occupationArray = searchByOccupation(eyeColorArray);
   displayPeople(occupationArray);
   foundPerson = ifOnePersonFound(occupationArray);
   if(foundPerson == true){
-    displayPerson(genderArray);
+    displayPerson(occupationArray);
     return;
   }
 }
 
 //If there is one result in the search by traits it will return true
 function ifOnePersonFound(people){
-  if(people > 1){
+  if(people.length <= 1){
     return true;
   }
   else{
