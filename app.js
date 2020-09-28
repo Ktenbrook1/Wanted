@@ -63,7 +63,7 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
 
-  let foundPerson = people.filter(function(person){
+  let foundPerson = people.filter(function(el){
     if(person.firstName === firstName && person.lastName === lastName){
       return true;
     }
@@ -216,22 +216,22 @@ function displayDescendants(person, people, allDescendants = []) {
       return false;
     }
   });
-  if (newArray.length > 1) {
+  if (foundPerson.length > 1) {
     for (var i = 0; i < newArray.length; i++) {
-      displayDescendants(newArray[i], data, allDescendants);
+      displayDescendants(foundPerson[i], data, allDescendants);
     }
     loopFinish = true;
   } else if (allDescendants.length === 0) {
     loopFinish = true;
   }
   
-  if (newArray.length >= 1) {
+  if (foundPerson.length >= 1) {
     displayPeople(allDescendants)
     return app(data);
   }
  
   if (loopFinish) {
-    if (newArray === undefined || newArray.length === 0) {
+    if (foundPerson === undefined || foundPerson.length === 0) {
       alert("This person has no descendants");
       return app(data);
     }
