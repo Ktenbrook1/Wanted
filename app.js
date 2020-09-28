@@ -34,7 +34,7 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  let displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
     case "info":
@@ -152,21 +152,21 @@ function searchByTraits(people){
   //checks to see if one person was passed in
   let foundPerson = ifOnePersonFound(genderArray);
   if(foundPerson == true){
-    displayPerson(genderArray);
+    mainMenu(genderArray);
     return;
   }
   let eyeColorArray = searchByEyeColor(genderArray);
   displayPeople(eyeColorArray);
   foundPerson = ifOnePersonFound(eyeColorArray);
   if(foundPerson == true){
-    displayPerson(eyeColorArray);
+    mainMenu(eyeColorArray);
     return;
   }
   let occupationArray = searchByOccupation(eyeColorArray);
   displayPeople(occupationArray);
   foundPerson = ifOnePersonFound(occupationArray);
   if(foundPerson == true){
-    displayPerson(occupationArray);
+    mainMenu(occupationArray);
     return;
   }
 }
@@ -191,13 +191,13 @@ function displayPeople(people){
 function displayPerson(person){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
-  let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Height: " + person.height + "\n";
-  personInfo += "Weight: " + person.weight + "\n";
-  personInfo += "Age: " + person.age + "\n";
-  personInfo += "Eye Color: " + person.eyecolor + "\n";
-  personInfo += "Occupation: " + person.occupation + "\n"; 
+  let personInfo = "First Name: " + person[0].firstName + "\n";
+  personInfo += "Last Name: " + person[0].lastName + "\n";
+  personInfo += "Height: " + person[0].height + "\n";
+  personInfo += "Weight: " + person[0].weight + "\n";
+  personInfo += "Date of Birth: " + person[0].dob + "\n";
+  personInfo += "Eye Color: " + person[0].eyeColor + "\n";
+  personInfo += "Occupation: " + person[0].occupation + "\n"; 
   alert(personInfo);
   mainMenu(person);
 }
