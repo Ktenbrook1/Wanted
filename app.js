@@ -119,16 +119,63 @@ function searchByEyeColor(people){
       break;
   }
 }
+
+function searchByOccupation(people){
+  let searchType = promptFor("Was the suspect wearing any clothes that could have hinted towards a occupation? Enter 'yes' or 'no'", yesNo).toLowerCase();
+
+  switch(searchType){
+    case 'yes':
+      let occupation = promptFor("What was their occupation?", chars);
+      if(occupation == "programmer" || occupation == "assistant" || occupation == "landscaper" || occupation == "nurse" || occupation == "student" || occupation == "architect" || occupation == "doctor" || occupation == "politician"){
+        let foundPeople = people.filter(function(el){
+          if(el.occupation == occupation){
+            return true;
+          }
+        })
+        return foundPeople;
+      }
+      else{
+        notValid();
+        return searchByOccupation(people);
+      }
+    case 'no':
+      break;
+  }
+}
 //SearchByTraits
 function searchByTraits(people){
 
   let genderArray = searchByGender(people);
   displayPeople(genderArray);
+  //checks to see if one person was passed in
+  let foundPerson = ifOnePersonFound(genderArray);
+  if(foundPerson == true){
+    displayPerson(genderArray);
+    return;
+  }
   let eyeColorArray = searchByEyeColor(genderArray);
   displayPeople(eyeColorArray);
-  let foundPeople = eyeColorArray;
-
-  return foundPeople;
+  // let foundPerson = ifOnePersonFound(eyeColorArray);
+  if(foundPerson == true){
+    displayPerson(genderArray);
+    return;
+  }
+  let occupationArray = searchByOccupation(eyeColorArray);
+  displayPeople(occupationArray);
+  // let foundPerson = ifOnePersonFound(occupationArray);
+  if(foundPerson == true){
+    displayPerson(genderArray);
+    return;
+  }
+}
+//If there is one result in the search by traits it will return true
+function ifOnePersonFound(people){
+  if(people > 1){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 
@@ -150,6 +197,7 @@ function displayPerson(person){
   personInfo += "Eye Color: " + person.eyecolor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n"; 
   alert(personInfo);
+  mainMenu(person);
 }
 
 // function that prompts and validates user input
