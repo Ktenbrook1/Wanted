@@ -148,76 +148,40 @@ function searchByOccupation(people){
 }
 //SearchByTraits
 
-// function searchByTraits(people){
+function searchByTraits(people){
 
-//   let genderArray = searchByGender(people);
-//   displayPeople(genderArray);
-//   //checks to see if one person was passed in
-//   let foundPerson = ifOnePersonFound(genderArray);
-//   if(foundPerson == true){
-//     displayPerson(genderArray);
-//     return;
-//   }
-//   let eyeColorArray = searchByEyeColor(genderArray);
-//   displayPeople(eyeColorArray);
-//   // let foundPerson = ifOnePersonFound(eyeColorArray);
-//   if(foundPerson == true){
-//     displayPerson(genderArray);
-//     return;
-//   }
-//   let occupationArray = searchByOccupation(eyeColorArray);
-//   displayPeople(occupationArray);
-//   // let foundPerson = ifOnePersonFound(occupationArray);
-//   if(foundPerson == true){
-//     displayPerson(genderArray);
-//     return;
-//   }
-// }
-// //If there is one result in the search by traits it will return true
-// function ifOnePersonFound(people){
-//   if(people > 1){
-//     return true;
-//   }
-//   else{
-//     return false;
-//   }
-// }
-
-function searchByTraits(people) {
-  let searchType = promptFor("Which trait(s) would you like to search by? 'gender', 'dob', 'height', 'weight', 'eye color', 'occupation'", chars).toLowerCase();
-  let filterPeople = [];
-  
-  switch(searchType){
-      case "gender":
-      filterPeople = searchByGender(people);
-      break;
-      case "dob":
-      filterPeople = searchByDob(people);
-      break;
-      case "height":
-      filterPeople = searchByHeight(people);
-      break;
-      case "weight":
-      filterPeople = searchByWeight(people);
-      break;
-      case "eye color":
-      filterPeople = searchByEyeColor(people);
-      break;
-      case "occupation":
-      filterPeople = searchByOccupation(people);
-      break;
-      case "restart":
-      app(people); // restart
-      break;
-      case "quit":
-      return;
-      default:
-        alert("Please Enter A Correct Entry Option");
-        searchByTraits(people);
-        break;
-    }
+  let genderArray = searchByGender(people);
+  displayPeople(genderArray);
+  //checks to see if one person was passed in
+  let foundPerson = ifOnePersonFound(genderArray);
+  if(foundPerson == true){
+    displayPerson(genderArray);
+    return;
   }
-
+  let eyeColorArray = searchByEyeColor(genderArray);
+  displayPeople(eyeColorArray);
+  // let foundPerson = ifOnePersonFound(eyeColorArray);
+  if(foundPerson == true){
+    displayPerson(genderArray);
+    return;
+  }
+  let occupationArray = searchByOccupation(eyeColorArray);
+  displayPeople(occupationArray);
+  // let foundPerson = ifOnePersonFound(occupationArray);
+  if(foundPerson == true){
+    displayPerson(genderArray);
+    return;
+  }
+}
+//If there is one result in the search by traits it will return true
+function ifOnePersonFound(people){
+  if(people > 1){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
 
 // alerts a list of people
 function displayPeople(people){
