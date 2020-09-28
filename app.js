@@ -81,18 +81,16 @@ function searchByGender(people){
   switch(searchType){
     case 'yes':
       let gender = promptFor("What is the person's gender?", chars);
-      if(gender == male || gender == female){
+      if(gender == "male" || gender == "female"){
         let foundPeople = people.filter(function(el){
           if(el.gender === gender){
-            return foundPeople;
-          }
-          else{
-            return false;
+            return true;
           }
         })
+        return foundPeople;
       }
       else{
-        alert("Could not find that individual based on the input given. Please try again or say 'no' to proceed to next question.");
+        notValid();
         return searchByGender(people);
       }
     case 'no':
@@ -106,19 +104,18 @@ function searchByEyeColor(people){
   switch(searchType){
     case 'yes':
       let eyeColor = promptFor("What is the person's eye color?", chars);
-      if(eyecolor == blue || eyeColor == black || eyeColor == brown || eyeColor == hazel || eyeColor == green){
+      if(eyeColor == "blue" || eyeColor == "black" || eyeColor == "brown" || eyeColor == "hazel" || eyeColor == "green"){
         let foundPeople = people.filter(function(el){
-          if(el.gender === gender){
-            return foundPeople;
-          }
-          else{
-            notValid();
+          if(el.eyeColor == eyeColor){
+            return true;
           }
         })
+        return foundPeople;
       }
       else{
+        notValid();
         return searchByEyeColor(people);
-      }
+      }    
     case 'no':
       break;
   }
@@ -149,30 +146,32 @@ function searchByOccupation(people){
 //SearchByTraits
 
 function searchByTraits(people){
+let foundperson;
 
   let genderArray = searchByGender(people);
   displayPeople(genderArray);
   //checks to see if one person was passed in
-  let foundPerson = ifOnePersonFound(genderArray);
+  foundPerson = ifOnePersonFound(genderArray);
   if(foundPerson == true){
     displayPerson(genderArray);
     return;
   }
   let eyeColorArray = searchByEyeColor(genderArray);
   displayPeople(eyeColorArray);
-  // let foundPerson = ifOnePersonFound(eyeColorArray);
+  foundPerson = ifOnePersonFound(eyeColorArray);
   if(foundPerson == true){
     displayPerson(genderArray);
     return;
   }
   let occupationArray = searchByOccupation(eyeColorArray);
   displayPeople(occupationArray);
-  // let foundPerson = ifOnePersonFound(occupationArray);
+  foundPerson = ifOnePersonFound(occupationArray);
   if(foundPerson == true){
     displayPerson(genderArray);
     return;
   }
 }
+
 //If there is one result in the search by traits it will return true
 function ifOnePersonFound(people){
   if(people > 1){
