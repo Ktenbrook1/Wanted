@@ -39,6 +39,7 @@ function mainMenu(person, people){
   switch(displayOption){
     case "info":
     displayPerson(person, people)
+    return app 
     break;
     case "family":
     displayFamily(person, people)
@@ -222,38 +223,40 @@ function displayPerson(person){
   alert(personInfo);
 }
 
-function displayDescendants(person, people, allDescendants = []) {
-  var loopFinish = false;
-  let newArray = people.filter(function (el) {
-    if( (person.id == el.parents[0]) || (person.id == el.parents[1]) ) {
-      allDescendants.push(el)
-      return true;
-    } else {
-      return false;
-    }
-  });
-  if (foundPerson.length > 1) {
-    for (var i = 0; i < newArray.length; i++) {
-      displayDescendants(foundPerson[i], data, allDescendants);
-    }
-    loopFinish = true;
-  } else if (allDescendants.length === 0) {
-    loopFinish = true;
-  }
+
+
+// function displayDescendants(person, people, allDescendants = []) {
+//   var loopFinish = false;
+//   let newArray = people.filter(function (el) {
+//     if( (person.id == el.parents[0]) || (person.id == el.parents[1]) ) {
+//       allDescendants.push(el)
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   });
+//   if (foundPerson.length > 1) {
+//     for (var i = 0; i < newArray.length; i++) {
+//       displayDescendants(foundPerson[i], data, allDescendants);
+//     }
+//     loopFinish = true;
+//   } else if (allDescendants.length === 0) {
+//     loopFinish = true;
+//   }
   
-  if (foundPerson.length >= 1) {
-    displayPeople(allDescendants)
-    return app(data);
-  }
+//   if (foundPerson.length >= 1) {
+//     displayPeople(allDescendants)
+//     return app(data);
+//   }
  
-  if (loopFinish) {
-    if (foundPerson === undefined || foundPerson.length === 0) {
-      alert("This person has no descendants");
-      return app(data);
-    }
-    loopFinish = false;
-  }
-}
+//   if (loopFinish) {
+//     if (foundPerson === undefined || foundPerson.length === 0) {
+//       alert("This person has no descendants");
+//       return app(data);
+//     }
+//     loopFinish = false;
+//   }
+// }
 
 // function that prompts and validates user input
 function promptFor(question, valid){
