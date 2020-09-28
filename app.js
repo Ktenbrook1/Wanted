@@ -71,6 +71,10 @@ function searchByName(people){
       return false;
     }
   })
+  if(foundPerson === undefined || foundPerson.length === 0) {
+    alert("Could not find that person.");
+    return app(data);
+  }
   // TODO: find the person using the name they entered
 
   return foundPerson;
