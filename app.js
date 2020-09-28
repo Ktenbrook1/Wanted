@@ -63,20 +63,18 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
 
-  let foundPerson = people.filter(function(person){
-    if(person.firstName === firstName && person.lastName === lastName){
+  let foundPerson = people.filter(function(el){
+    if(el.firstName == firstName && el.lastName == lastName){
       return true;
     }
     else{
       return false;
     }
-  })
+  }) 
   if(foundPerson === undefined || foundPerson.length === 0) {
-    alert("Could not find that person.");
+    notValid();
     return app(data);
   }
-  // TODO: find the person using the name they entered
-
   return foundPerson;
 }
 function searchByGender(people){
