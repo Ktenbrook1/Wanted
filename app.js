@@ -225,28 +225,48 @@ function displayDescendants(person, people){
 }
 
 function displayFamily(person, people) {
+  console.log(person);
+  console.log(person.parents);
   let parentArray = people.filter(function (el) {
-      if (person.id == el.id) {
-        return false;
-
-      } else if( ( (person.id == el.currentSpouse && el.currentSpouse !== null && person.currentSpouse !== null) ||
-        person.id == el.parents[0] ||
-        person.id == el.parents[1] ||
-        person.parents[0] == el.id ||
-        person.parents[1] == el.id ||
-        (person.parents[0] == el.parents[0] && person.parents.length >= 1) ||
-        (person.parents[0] == el.parents[1] && person.parents.length >= 1) ||
-        (person.parents[1] == el.parents[0] && person.parents.length >= 1) ||
-        (person.parents[1] == el.parents[1] && person.parents.length >= 1) ) ) {
+      if (el.id == person[0].parents[0] || el.id == person[0].parents[1]) {
         return true;
-      } else {
+      } 
+      else{
         return false;
       }
+    });
+
+  let siblingArray = people.filter(function(el){
+      if(el.parents[0] == person[0].parents[0] 
+        || el.parents[1] == person[0].parents[1]){
+        return true;
+      }
+      else{
+        return false;
+      }
+    });
+
+  let spouse = people.filter(function(el){
+    if(el.id === people.spouse){
+      return true;
+    }
+    else{
+      return false;
+    }
   });
 
   if (parentArray.length >= 1) {
+    let parentAlert = "Here are the parents";
+    alert(parentAlert);
     displayPeople(parentArray);
-    return app(data);
+  }
+  if(siblingArray.length >= 1){
+    alert("Here are the siblings");
+    displayPeople(siblingArray);
+  }
+  if(spouse.length >= 1){
+    alert("Here is the spouse");
+    displayPeople(spouse);
   }
 }
   
