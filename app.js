@@ -39,6 +39,7 @@ function mainMenu(person, people){
   switch(displayOption){
     case "info":
     displayPerson(person, people)
+    return app 
     break;
     case "family":
     displayFamily(person, people)
@@ -205,8 +206,10 @@ function displayPerson(person){
   alert(personInfo);
 }
 
+
 function displayDescendants(person, people){
   let descendantsArray = people.filter(function(el){
+
     if(el.parents[0] == person.id || el.parents[1] == person.id){
         return true;
     }
@@ -221,15 +224,33 @@ function displayDescendants(person, people){
   });
 }
 
-function displayFamily(person, people){
-  let parrentArray = people.filter(function(el){
-    if(el.parents[0] == people.id || el.parents[1] == people.id){
+function displayFamily(person, people) {
+  let parentArray = people.filter(function (el) {
+      if (person.id == el.id) {
+        return false;
+
+      } else if( ( (person.id == el.currentSpouse && el.currentSpouse !== null && person.currentSpouse !== null) ||
+        person.id == el.parents[0] ||
+        person.id == el.parents[1] ||
+        person.parents[0] == el.id ||
+        person.parents[1] == el.id ||
+        (person.parents[0] == el.parents[0] && person.parents.length >= 1) ||
+        (person.parents[0] == el.parents[1] && person.parents.length >= 1) ||
+        (person.parents[1] == el.parents[0] && person.parents.length >= 1) ||
+        (person.parents[1] == el.parents[1] && person.parents.length >= 1) ) ) {
         return true;
-    }
-    else{
-      return false;
+      } else {
+        return false;
+      }
+  });
+
+  if (parentArray.length >= 1) {
+    displayPeople(parentArray);
+    return app(data);
+  }
 }
   
+
 
 // function that prompts and validates user input
 function promptFor(question, valid){
