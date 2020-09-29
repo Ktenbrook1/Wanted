@@ -269,6 +269,16 @@ function displayFamily(person, people) {
     displayPeople(spouse);
   }
 }
+
+function searchForDescendants(person, people) {
+  let foundDescendants = [];
+  for (let i = 0; i < people.length; i++) {
+    if (people[i].parents.includes(person.id)) {
+      foundDescendants.push(people[i]);
+    }
+  }
+  return foundDescendants;
+}
   
 
 
