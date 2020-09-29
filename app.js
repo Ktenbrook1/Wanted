@@ -222,30 +222,91 @@ function displayDescendants(person, people){
   });
 }
 
-function displayFamily(person, people) {
-  let parentArray = people.filter(function (el) {
-      if (person.id == el.id) {
-        return false;
-
-      } else if( ( (person.id == el.currentSpouse && el.currentSpouse !== null && person.currentSpouse !== null) ||
-        person.id == el.parents[0] ||
-        person.id == el.parents[1] ||
-        person.parents[0] == el.id ||
-        person.parents[1] == el.id ||
-        (person.parents[0] == el.parents[0] && person.parents.length >= 1) ||
-        (person.parents[0] == el.parents[1] && person.parents.length >= 1) ||
-        (person.parents[1] == el.parents[0] && person.parents.length >= 1) ||
-        (person.parents[1] == el.parents[1] && person.parents.length >= 1) ) ) {
-        return true;
-      } else {
-        return false;
-      }
+function getFamily(person, people) {
+  let family = people.filter(function (el) {
+    if (el.parents === people.id) {
+      return true;
+    } else {
+      return false;
+    }
   });
+  const newObj = family.reduce(function (result, item, index) {
+    result[index] = item;
+    return result;
+  });
+  displayPeople(newObj);
+}
 
-  if (parentArray.length >= 1) {
-    displayPeople(parentArray);
-    return app(data);
+function getSpouse(person, people) {
+  let foundSpouse = people.filter(function (spouse) {
+    if (people.currentSpouse === spose.id) {
+      if (spouse.currentSpouse === "female") {
+        spouse.role = "wife";
+      } else {
+        spouse.role = "husband";
+      }
+      return true;
+    } else {
+      return false;
+    }
+  });
+  return foundSpouse;
+}
+function getSiblings(person, people) {
+  let siblings = people.filter(function (familymember) {
+    if (person.id === familymember.id) {
+      return false;
+    }
+    if (
+      person.parents[0] === familymember.parents[0] ||
+      person.parents[1] === familymember.parents[0] ||
+      person.parents[0] === familymember.parents[1] ||
+      person.parents[1] === familymember.parents[1]
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  siblings.map(function (individual) {
+    if (individual.gender === "female") {
+      individual.role = "sister";
+    } else {
+      individual.role = "brother";
+    }
+    return false;
+  });
+  return foundSiblings;
+}
+function getParents(person, people) {
+  let parents = people.filter(function (individual) {
+    if (
+      individual.id === person.parents[0] ||
+      individual.id === person.parents[1]
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  parents.map(function (individual) {
+    if (individual.gender === "female") {
+      individual.role = "mother";
+    } else {
+      individual.role = "father";
+    }
+  });
+  return parents;
+}
+
+function searchForDescendants(person, people) {
+  let foundDescendants = [];
+  for (let i = 0; i < people.length; i++) {
+    if (people[i].parents.includes(person.id)) {
+      foundDescendants.push(people[i]);
+    }
   }
+  return foundDescendants;
 }
   
 
