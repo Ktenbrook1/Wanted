@@ -171,6 +171,8 @@ function searchByTraits(people){
     mainMenu(occupationArray);
     return;
   }
+  notValid();
+  return;
 }
 
 //If there is one result in the search by traits it will return true
@@ -204,7 +206,7 @@ function displayPerson(person){
 }
 
 function displayDescendants(person, people){
-  let childrenArray = people.filter(function(el){
+  let descendantsArray = people.filter(function(el){
     if(el.parents[0] == person.id || el.parents[1] == person.id){
         return true;
     }
@@ -213,7 +215,7 @@ function displayDescendants(person, people){
     }
   })
   //displayPeople(childrenArray);
-  childrenArray.forEach(child => {
+  descendantsArray.forEach(child => {
     displayPerson([child]);
     displayDescendants(child, people);
   });
